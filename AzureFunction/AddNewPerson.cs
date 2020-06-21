@@ -19,12 +19,20 @@ namespace People.NewPerson
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
+            // Receive query input in Function request
             string name = req.Query["name"];
 
+            // Read the request body
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject<Person>(requestBody);
-            name = name ?? data?.FullName;
 
+            // Attempt to deserialize the request body into a Person object
+            Person person = JsonConvert.DeserializeObject<Person>(requestBody);
+
+            // Name is either the value passed in the Function request or 
+            // the full name of the Person in the requestBody
+            name = name ?? person?.FullName;
+
+            // Return an OK message including the value stored in the name variable
             string responseMessage = string.IsNullOrEmpty(name)
                 ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
                 : $"Hello, {name}. This HTTP triggered function executed successfully.";
