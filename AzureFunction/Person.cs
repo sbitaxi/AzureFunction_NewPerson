@@ -19,7 +19,7 @@ namespace People.NewPerson
         It will be included in the return message
         to Postman but is to be removed with the 
         live app
-    */
+    
         public string CompleteRecord
         {
             get
@@ -30,5 +30,6 @@ namespace People.NewPerson
                         City + ' ' + Province + ' ' + PostalCode;
             }
         }
+        */
     }
 }
