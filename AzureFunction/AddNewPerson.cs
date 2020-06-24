@@ -30,7 +30,7 @@ namespace People.NewPerson
 
             // Name is either the value passed in the Function request or 
             // the full name of the Person in the requestBody
-            name = name ?? person?.FullName;
+            name = name ?? person?.CompleteRecord;
 
             // Return an OK message including the value stored in the name variable
             string responseMessage = string.IsNullOrEmpty(name)

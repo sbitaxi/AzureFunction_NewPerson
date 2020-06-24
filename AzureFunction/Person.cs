@@ -1,3 +1,7 @@
+
+
+using System;
+
 namespace People.NewPerson
 {
     public class Person
@@ -11,16 +15,19 @@ namespace People.NewPerson
         public string PostalCode { get; set; }
 
     /*
-        FullName is for testing purposes only
+        CompleteRecord is for testing purposes only
         It will be included in the return message
         to Postman but is to be removed with the 
         live app
     */
-        public string FullName
+        public string CompleteRecord
         {
             get
             {
-                return FirstName + ' ' + LastName;
+                return FirstName + ' ' + LastName + Environment.NewLine +
+                        Email + Environment.NewLine +
+                        Address + Environment.NewLine +
+                        City + ' ' + Province + ' ' + PostalCode;
             }
         }
     }
