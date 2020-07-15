@@ -33,9 +33,6 @@ namespace People.NewPerson
         private void InitConnection()
         {
             _connection = new SqlConnection(ConStr);
-            _connection.AccessToken = (new Microsoft.Azure.Services
-                            .AppAuthentication.AzureServiceTokenProvider())
-                            .GetAccessTokenAsync("https://database.windows.net/").Result;
         }
 
         private void InitCommand()
