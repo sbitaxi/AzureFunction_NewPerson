@@ -10,10 +10,17 @@ using Newtonsoft.Json;
 
 namespace People.NewPerson
 {
-    public static class AddNewPerson
+    public class AddNewPerson
     {
+        private readonly MyContext _myContext;
+
+        public AddNewPerson(MyContext myContext)
+        {
+            _myContext = myContext;
+        }
+
         [FunctionName("AddNewPerson")]
-        public static async Task<IActionResult> Run(
+        public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
             ILogger log)
         {
@@ -31,7 +38,12 @@ namespace People.NewPerson
             // Name is either the value passed in the Function request or 
             // the full name of the Person in the requestBody
             name = name ?? person?.FirstName;
-            DataClient dataClient = new DataClient(person);
+            
+            AddNewPersonSproc anps = new AddNewPersonSproc(_myContext);
+
+            anps.ExecuteSproc(person);
+
+            //DataClient dataClient = new DataClient(person);
             // Return an OK message including the value stored in the name variable
             string responseMessage = string.IsNullOrEmpty(name)
                 ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
